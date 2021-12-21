@@ -1,4 +1,4 @@
 # GO Application Structure using HEX Architecture
 How to structure your GO application.
   
-![Domain Driven Design Hexagoanl Architecture](.\Images\DDD_Hex_Arch.png)
+![Domain Driven Design Hexagonal Architecture](Images\DDD_Hex_Arch.png)
