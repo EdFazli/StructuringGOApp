@@ -3,5 +3,7 @@ How to structure your GO application.
   
 ![Domain Driven Design Hexagonal Architecture](Images/DDD_Hex_Arch.png)
   
-GOPATH = D:\GO
-mkdir -p D:/GO/{bin, src, pkg}
+## Directory Setup  
+1. `go env | grep GOPATH`  
+> GOPATH = D:/GO  
+2. `mkdir -p D:/GO/{bin, src, pkg}`
