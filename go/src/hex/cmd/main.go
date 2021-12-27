@@ -12,5 +12,9 @@ func main() {
 	fmt.Println("Main file")
 
 	arithAdapter := arithmetic.NewAdapter()
-	arithAdapter.Addition(3, 5)
+	result, err := arithAdapter.Addition(3, 5)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(result)
 }
