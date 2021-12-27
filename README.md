@@ -11,4 +11,5 @@ How to structure your GO application.
 4. `cd hex && go mod init`  
 5. `mkdir cmd internal`  
 6. `cd cmd` and create main.go  
-7. 
+7. `cd ../internal && mkdir ports` and create core.go  
+8. 
