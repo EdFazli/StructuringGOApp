@@ -9,3 +9,6 @@ How to structure your GO application.
 2. `mkdir -p D:/GO/{bin, src, pkg}`  
 3. `cd src && mkdir hex`   
 4. `cd hex && go mod init`  
+5. `mkdir cmd internal`  
+6. `cd cmd` and create main.go  
+7. 
