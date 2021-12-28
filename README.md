@@ -21,6 +21,8 @@ Documentation
 #### Prerequisites  
 - **Go**
 - **Protocol Buffer** compiler, `protoc`, version 3  
+> https://github.com/protocolbuffers/protobuf/releases  
+>> download protoc-3.19.1-win64.zip  
 - **Go Plugins**  
 > Install the protocol compiler plugins for Go using the following commands:  
 >> $ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26
