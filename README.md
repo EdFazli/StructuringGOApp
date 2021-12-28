@@ -13,3 +13,11 @@ How to structure your GO application.
 ...  
 ...  
   
+## gRPC - Google Remote Procedure Call  
+Documentation
+> gRPC : https://grpc.io/docs/languages/go/  
+  
+#### Prerequisites  
+- **Go**
+- **Protocol Buffer** compiler, `protoc`, version 3  
+- **Go Plugins**  
