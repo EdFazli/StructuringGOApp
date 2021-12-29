@@ -43,7 +43,8 @@ Documentation
 > Docker compose file v3 : https://docs.docker.com/compose/compose-file/compose-file-v3/  
   
 #### Commands
-1. `docker compose up --build` - Run this command in the same directory as docker-compose.yaml file.  
+1. `docker compose up --build` - Run this command in the same directory as docker-compose.yaml file to build the docker image.  
+2. `docker compose down` - To bring down the container.    
   
   
 ***Reference : https://www.youtube.com/watch?v=MpFog2kZsHk***  
