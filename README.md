@@ -40,3 +40,4 @@ Documentation
 Documentation  
 > Download docker : https://docs.docker.com/desktop/windows/install/  
 > WSL2 for Windows : https://docs.microsoft.com/en-gb/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package  
+> Docker compose file v3 : https://docs.docker.com/compose/compose-file/compose-file-v3/  
