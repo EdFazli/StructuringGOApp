@@ -12,6 +12,7 @@ import (
 	"github.com/EdFazli/StructuringGOApp/internal/adapters/framework/left/grpc/pb"
 	"github.com/EdFazli/StructuringGOApp/internal/adapters/framework/right/db"
 	"github.com/EdFazli/StructuringGOApp/internal/ports"
+	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/test/bufconn"
 )
@@ -62,4 +63,88 @@ func getGRPCConnection(ctx context.Context, t *testing.T) *grpc.ClientConn {
 	}
 
 	return conn
+}
+
+func TestGetAddition(t *testing.T) {
+	ctx := context.Background()
+	conn := getGRPCConnection(ctx, t)
+	defer conn.Close()
+
+	client := pb.NewArithmeticServiceClient(conn)
+
+	params := &pb.OperationParameters{
+		A: 1,
+		B: 1,
+	}
+
+	answer, err := client.GetAddition(ctx, params)
+	if err != nil {
+		t.Fatalf("expected: %v, got: %v", nil, err)
+	}
+
+	require.Equal(t, answer.Value, int32(2))
+
+}
+
+func TestGetSubtraction(t *testing.T) {
+	ctx := context.Background()
+	conn := getGRPCConnection(ctx, t)
+	defer conn.Close()
+
+	client := pb.NewArithmeticServiceClient(conn)
+
+	params := &pb.OperationParameters{
+		A: 1,
+		B: 1,
+	}
+
+	answer, err := client.GetSubtraction(ctx, params)
+	if err != nil {
+		t.Fatalf("expected: %v, got: %v", nil, err)
+	}
+
+	require.Equal(t, answer.Value, int32(0))
+
+}
+
+func TestGetMultiplication(t *testing.T) {
+	ctx := context.Background()
+	conn := getGRPCConnection(ctx, t)
+	defer conn.Close()
+
+	client := pb.NewArithmeticServiceClient(conn)
+
+	params := &pb.OperationParameters{
+		A: 1,
+		B: 1,
+	}
+
+	answer, err := client.GetMultiplication(ctx, params)
+	if err != nil {
+		t.Fatalf("expected: %v, got: %v", nil, err)
+	}
+
+	require.Equal(t, answer.Value, int32(1))
+
+}
+
+func TestGetDivision(t *testing.T) {
+	ctx := context.Background()
+	conn := getGRPCConnection(ctx, t)
+	defer conn.Close()
+
+	client := pb.NewArithmeticServiceClient(conn)
+
+	params := &pb.OperationParameters{
+		A: 1,
+		B: 1,
+	}
+
+	answer, err := client.GetDivision(ctx, params)
+	if err != nil {
+		t.Fatalf("expected: %v, got: %v", nil, err)
+	}
+
+	require.Equal(t, answer.Value, int32(1))
+
 }
