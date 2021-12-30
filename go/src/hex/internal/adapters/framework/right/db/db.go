@@ -8,21 +8,24 @@ import (
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
+	// blank import for mysql driver
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// Adapter implements the DbPort interface
 type Adapter struct {
 	db *sql.DB
 }
 
+// NewAdapter creates a new Adapter
 func NewAdapter(driverName, dataSourceName string) (*Adapter, error) {
-	//connect
+	// connect
 	db, err := sql.Open(driverName, dataSourceName)
 	if err != nil {
-		log.Fatalf("db connection failure: %v", err)
+		log.Fatalf("db connection failur: %v", err)
 	}
 
-	//test connection
+	// test db connection
 	err = db.Ping()
 	if err != nil {
 		log.Fatalf("db ping failure: %v", err)
@@ -31,20 +34,23 @@ func NewAdapter(driverName, dataSourceName string) (*Adapter, error) {
 	return &Adapter{db: db}, nil
 }
 
-func (dA Adapter) CloseDbConnection() {
-	err := dA.db.Close()
+// CloseDbConnection closes the db  connection
+func (da Adapter) CloseDbConnection() {
+	err := da.db.Close()
 	if err != nil {
 		log.Fatalf("db close failure: %v", err)
 	}
 }
 
-func (dA Adapter) AddToHistory(answer int32, operation string) error {
-	queryString, args, err := sq.Insert("arith_history").Columns("date", "answer", "operation").Values(time.Now(), answer, operation).ToSql()
+// AddToHistory adds the result of an operation to the database history table
+func (da Adapter) AddToHistory(answer int32, operation string) error {
+	queryString, args, err := sq.Insert("arith_history").Columns("date", "answer", "operation").
+		Values(time.Now(), answer, operation).ToSql()
 	if err != nil {
 		return err
 	}
 
-	_, err = dA.db.Exec(queryString, args...)
+	_, err = da.db.Exec(queryString, args...)
 	if err != nil {
 		return err
 	}

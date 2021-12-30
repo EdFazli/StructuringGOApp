@@ -1,8 +1,7 @@
-//create interfaces here for our core adapter need to implement
+package api
 
-package ports
-
-type ArithmeticPort interface {
+// Arithmetic
+type Arithmetic interface {
 	Addition(a int32, b int32) (int32, error)
 	Subtraction(a int32, b int32) (int32, error)
 	Multiplication(a int32, b int32) (int32, error)

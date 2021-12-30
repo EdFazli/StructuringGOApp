@@ -3,39 +3,49 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
-	"github.com/EdFazli/StructuringGOApp/internal/adapters/app/api"
-	"github.com/EdFazli/StructuringGOApp/internal/adapters/core/arithmetic"
-	"github.com/EdFazli/StructuringGOApp/internal/adapters/framework/right/db"
-	"github.com/EdFazli/StructuringGOApp/internal/ports"
+	//application
+	"github.com/EdFazli/StructuringGOApp/internal/application/api"
+	"github.com/EdFazli/StructuringGOApp/internal/application/core/arithmetic"
 
+	//adapters
 	gRPC "github.com/EdFazli/StructuringGOApp/internal/adapters/framework/left/grpc"
+	"github.com/EdFazli/StructuringGOApp/internal/adapters/framework/right/db"
 )
 
 func main() {
-	fmt.Println("Main file")
-
 	var err error
-
-	//ports
-	var dbaseAdapter ports.DbPort
-	var core ports.ArithmeticPort
-	var appAdapter ports.APIPort
-	var gRPCAdapter ports.GRPCPort
 
 	dbaseDriver := os.Getenv("DB_DRIVER")
 	dsourceName := os.Getenv("DS_NAME")
-	dbaseAdapter, err = db.NewAdapter(dbaseDriver, dsourceName)
+
+	dbAdapter, err := db.NewAdapter(dbaseDriver, dsourceName)
 	if err != nil {
 		log.Fatalf("failed to initiate dbase connection: %v", err)
 	}
-	defer dbaseAdapter.CloseDbConnection()
+	defer dbAdapter.CloseDbConnection()
 
-	core = arithmetic.NewAdapter()
-	appAdapter = api.NewAdapter(dbaseAdapter, core)
-	gRPCAdapter = gRPC.NewAdapter(appAdapter)
+	// core
+	core := arithmetic.New()
+
+	// NOTE: The application's right side port for driven
+	// adapters, in this case, a db adapter.
+	// Therefore the type for the dbAdapter parameter
+	// that is to be injected into the NewApplication will
+	// be of type DbPort
+	applicationAPI := api.NewApplication(dbAdapter, core)
+
+	// NOTE: We use dependency injection to give the grpc
+	// adapter access to the application, therefore
+	// the location of the port is inverted. That is
+	// the grpc adapter accesses the hexagon's driving port at the
+	// application boundary via dependency injection,
+	// therefore the type for the applicaitonAPI parameter
+	// that is to be injected into the gRPC adapter will
+	// be of type APIPort which is our hexagons left side
+	// port for driving adapters
+	gRPCAdapter := gRPC.NewAdapter(applicationAPI)
 	gRPCAdapter.Run()
 }

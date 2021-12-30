@@ -4,20 +4,21 @@ import (
 	"context"
 
 	"github.com/EdFazli/StructuringGOApp/internal/adapters/framework/left/grpc/pb"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (grpcA Adapter) GetAddition(ctx context.Context, req *pb.OperationParameters) (*pb.Answer, error) {
+// GetAddition gets the result of adding parameters a and b
+func (grpca Adapter) GetAddition(ctx context.Context, req *pb.OperationParameters) (*pb.Answer, error) {
 	var err error
-
 	ans := &pb.Answer{}
 
 	if req.GetA() == 0 || req.GetB() == 0 {
 		return ans, status.Error(codes.InvalidArgument, "missing required")
 	}
 
-	answer, err := grpcA.api.GetAddition(req.A, req.B)
+	answer, err := grpca.api.GetAddition(req.A, req.B)
 	if err != nil {
 		return ans, status.Error(codes.Internal, "unexpected error")
 	}
@@ -29,16 +30,16 @@ func (grpcA Adapter) GetAddition(ctx context.Context, req *pb.OperationParameter
 	return ans, nil
 }
 
-func (grpcA Adapter) GetSubtraction(ctx context.Context, req *pb.OperationParameters) (*pb.Answer, error) {
+// GetSubtraction gets the result of subtracting parameters a and b
+func (grpca Adapter) GetSubtraction(ctx context.Context, req *pb.OperationParameters) (*pb.Answer, error) {
 	var err error
-
 	ans := &pb.Answer{}
 
 	if req.GetA() == 0 || req.GetB() == 0 {
 		return ans, status.Error(codes.InvalidArgument, "missing required")
 	}
 
-	answer, err := grpcA.api.GetSubtraction(req.A, req.B)
+	answer, err := grpca.api.GetSubtraction(req.A, req.B)
 	if err != nil {
 		return ans, status.Error(codes.Internal, "unexpected error")
 	}
@@ -50,16 +51,16 @@ func (grpcA Adapter) GetSubtraction(ctx context.Context, req *pb.OperationParame
 	return ans, nil
 }
 
-func (grpcA Adapter) GetMultiplication(ctx context.Context, req *pb.OperationParameters) (*pb.Answer, error) {
+// GetMultiplication gets the result of multiplying parameters a and b
+func (grpca Adapter) GetMultiplication(ctx context.Context, req *pb.OperationParameters) (*pb.Answer, error) {
 	var err error
-
 	ans := &pb.Answer{}
 
 	if req.GetA() == 0 || req.GetB() == 0 {
 		return ans, status.Error(codes.InvalidArgument, "missing required")
 	}
 
-	answer, err := grpcA.api.GetMultiplication(req.A, req.B)
+	answer, err := grpca.api.GetMultiplication(req.A, req.B)
 	if err != nil {
 		return ans, status.Error(codes.Internal, "unexpected error")
 	}
@@ -71,16 +72,16 @@ func (grpcA Adapter) GetMultiplication(ctx context.Context, req *pb.OperationPar
 	return ans, nil
 }
 
-func (grpcA Adapter) GetDivision(ctx context.Context, req *pb.OperationParameters) (*pb.Answer, error) {
+// GetDivision gets the result of dividing parameters a and b
+func (grpca Adapter) GetDivision(ctx context.Context, req *pb.OperationParameters) (*pb.Answer, error) {
 	var err error
-
 	ans := &pb.Answer{}
 
 	if req.GetA() == 0 || req.GetB() == 0 {
 		return ans, status.Error(codes.InvalidArgument, "missing required")
 	}
 
-	answer, err := grpcA.api.GetDivision(req.A, req.B)
+	answer, err := grpca.api.GetDivision(req.A, req.B)
 	if err != nil {
 		return ans, status.Error(codes.Internal, "unexpected error")
 	}
